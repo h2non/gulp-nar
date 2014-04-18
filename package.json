@@ -13,7 +13,7 @@
   },
   "scripts": {
     "pretest": "rm -rf .tmp",
-    "test": "mocha --reporter spec --ui tdd"
+    "test": "mocha --reporter spec --ui tdd --timeout 5000"
   },
   "files": [
     "index.js"

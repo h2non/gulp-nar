@@ -23,7 +23,7 @@ gulp.task('createAndExtract', function () {
 })
 
 gulp.task('extract', function () {
-  return gulp.src('fixture/fixture.nar')
+  return gulp.src('fixtures/fixture.nar')
     .pipe(nar.extract('.tmp/extract/fixture'))
 })
 

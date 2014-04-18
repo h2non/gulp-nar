@@ -1,76 +1,91 @@
 'use strict';
 
+var fs = require('fs')
 var path = require('path')
-var Stream = require('stream')
 var assert = require('assert')
-var gutil = require('gulp-util')
+var File = require('gulp-util').File
 var nar = require('./index')
+var version = require('./package.json').version
 
-it('should tar files in buffer mode', function (cb) {
-  var stream = nar('test.tar')
+var archivePath = path.join(__dirname, '.tmp', 'gulp-nar-' + version + '.nar')
 
-  stream.on('data', function (file) {
-    console.log('test', file)
-    assert.equal(file.path, path.join(__dirname, 'fixture', 'test.tar'))
-    assert.equal(file.relative, 'test.tar')
-    cb()
+describe('create', function () {
+  var stream
+
+  before(function () {
+    stream = nar.create('.tmp')
   })
 
-  stream.end()
-})
+  it('should create a new archive', function (done) {
+    stream.on('data', function (file) {
+      assert.equal(file.path, archivePath)
+      done()
+    })
 
-xit('should tar files in stream mode', function (cb) {
-  var stream = nar('test.tar')
+    stream.write(new File({
+      cwd: __dirname,
+      base: __dirname,
+      path: path.join(__dirname, 'package.json'),
+      contents: new Buffer('fake data')
+    }))
 
-  var stringStream1 = new Stream()
-  stringStream1.pipe = function(dest) {
-    dest.write('hello world 1')
-  }
-
-  var stringStream2 = new Stream()
-  stringStream2.pipe = function(dest) {
-    dest.write('hello world 2')
-  }
-
-  stream.on('data', function (file) {
-    assert.equal(file.path, path.join(__dirname, 'fixture', 'test.tar'))
-    assert.equal(file.relative, 'test.tar')
-    cb()
+    stream.end()
   })
 
-  stream.write(new gutil.File({
-    cwd: __dirname,
-    base: path.join(__dirname, 'fixture'),
-    path: path.join(__dirname, 'fixture/fixture.txt'),
-    contents: stringStream1
-  }))
-
-  stream.write(new gutil.File({
-    cwd: __dirname,
-    base: path.join(__dirname, 'fixture'),
-    path: path.join(__dirname, 'fixture/fixture.txt'),
-    contents: stringStream2
-  }))
-
-  stream.end()
+  it('should exists the archive', function () {
+    assert.equal(fs.existsSync(archivePath), true)
+  })
 })
 
-xit('should output file.contents as a Stream', function (cb) {
-  var stream = nar('test.tar')
+describe('extract', function () {
+  var stream
+  var dest = path.join(__dirname, '.tmp', 'extract')
 
-  stream.on('data', function (file) {
-    assert(file.contents instanceof Stream, 'File contents should be a Stream object')
-    cb()
+  before(function () {
+    stream = nar.extract(dest)
   })
 
-  stream.write(new gutil.File({
-    cwd: __dirname,
-    base: path.join(__dirname, 'fixture'),
-    path: path.join(__dirname, 'fixture/fixture.txt'),
-    contents: new Buffer('hello world')
-  }))
+  it('should extract the archive', function (done) {
+    stream.on('data', function (file) {
+      assert.equal(file.path, archivePath)
+      done()
+    })
 
-  stream.end()
+    stream.write(new File({
+      cwd: __dirname,
+      base: __dirname,
+      path: archivePath,
+      contents: new Buffer('fake data')
+    }))
+
+    stream.end()
+  })
+
+  it('should exists the output directory', function () {
+    assert.equal(fs.existsSync(dest), true)
+  })
+
+  it('should exists package.json', function () {
+    assert.equal(fs.existsSync(path.join(dest, 'package.json')), true)
+  })
+
+  it('should exists .nar.json', function () {
+    assert.equal(fs.existsSync(path.join(dest, '.nar.json')), true)
+  })
+
+  it('should exists index.js', function () {
+    assert.equal(fs.existsSync(path.join(dest, 'index.js')), true)
+  })
+
+  it('should exists the node_modules directory', function () {
+    assert.equal(fs.existsSync(path.join(dest, 'node_modules')), true)
+  })
+
+  it('should exists nar package dependency', function () {
+    assert.equal(fs.existsSync(path.join(dest, 'node_modules', 'nar', 'package.json')), true)
+  })
+
+  it('should exists mkdirp package dependency', function () {
+    assert.equal(fs.existsSync(path.join(dest, 'node_modules', 'mkdirp', 'package.json')), true)
+  })
 })
-
-
