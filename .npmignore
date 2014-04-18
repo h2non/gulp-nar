@@ -1,0 +1,7 @@
+fixtures
+.tmp
+.DS_Store
+.travis.yml
+.npmignore
+.editorconfig
+.gitignore
