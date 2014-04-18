@@ -1,6 +1,6 @@
 # gulp-nar [![Build Status](https://travis-ci.org/h2non/gulp-nar.svg?branch=master)][travis] [![Dependency Status](https://gemnasium.com/h2non/gulp-nar.png)][gemnasium] [![NPM version](https://badge.fury.io/js/gulp-nar.png)][npm]
 
-> Create [nar](https://github.com/h2non/nar) archives from [Gulp](http://gulpjs.com)
+> Create and extract [nar](https://github.com/h2non/nar) archives from [Gulp](http://gulpjs.com)
 
 ## Install
 
@@ -29,9 +29,8 @@ See [gulpfile.js][example] for more example
 `options` archive creation [options](https://github.com/h2non/nar#narcreateoptions)
 
 ### nar.extract(path, options)
-`path` Destination directory for the output tar archive  
-`options` archive creation [options](https://github.com/h2non/nar#narcreateoptions)
-
+`path` Destination directory for the extracted files
+`options` archive creation [options](https://github.com/h2non/nar#narextractoptions)
 
 ## License
 

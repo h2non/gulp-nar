@@ -1,7 +1,7 @@
 {
   "name": "gulp-nar",
   "version": "0.1.0",
-  "description": "Create nar archives",
+  "description": "Create and extract nar archives",
   "license": "MIT",
   "repository": "h2non/nar",
   "author": {
@@ -9,11 +9,11 @@
     "url": "http://tomas.aparicio.me"
   },
   "engines": {
-    "node": ">=0.8.0"
+    "node": ">= 0.10.0"
   },
   "scripts": {
     "pretest": "rm -rf .tmp",
-    "test": "mocha --reporter spec --ui tdd --timeout 5000"
+    "test": "mocha --reporter spec --ui tdd --timeout 10000"
   },
   "files": [
     "index.js"
