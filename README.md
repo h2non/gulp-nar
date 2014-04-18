@@ -14,9 +14,14 @@ $ npm install --save-dev gulp-nar
 var gulp = require('gulp');
 var nar = require('gulp-nar');
 
-gulp.task('nar', function () {
+gulp.task('create', function () {
 	gulp.src('package.json')
 		.pipe(nar('releases/'));
+});
+
+gulp.task('extract', function () {
+  gulp.src('app.nar')
+    .pipe(nar.extract('app/'));
 });
 ```
 
