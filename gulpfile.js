@@ -27,4 +27,4 @@ gulp.task('extract', function () {
     .pipe(nar.extract('.tmp/extract/fixture'))
 })
 
-gulp.task('default', ['create', 'createAndCopy', 'createAndExtract', 'extract']);
+gulp.task('default', ['create', 'createAndCopy', 'createAndExtract', 'extract'])
