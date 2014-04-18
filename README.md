@@ -25,17 +25,17 @@ gulp.task('extract', function () {
 });
 ```
 
-See [gulpfile.js][example] for more example
+See [gulpfile.js][example] for more examples
 
 ## API
 
 ### nar(path, options)
-`path` Destination directory for the nar archive. Default to current directory
-`options` archive creation [options](https://github.com/h2non/nar#narcreateoptions)
+- **path** `string` Destination directory for the nar archive. Default to current directory
+- **options** `object` Archive creation [options](https://github.com/h2non/nar#narcreateoptions)
 
 ### nar.extract(path, options)
-`path` Destination directory for the extracted files
-`options` archive creation [options](https://github.com/h2non/nar#narextractoptions)
+- **path** `string` Destination directory for the extracted files. Default to current directory
+- **options** `object` Archive extract [options](https://github.com/h2non/nar#narextractoptions)
 
 ## License
 
