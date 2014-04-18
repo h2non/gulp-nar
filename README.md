@@ -2,7 +2,7 @@
 
 > Create and extract [nar](https://github.com/h2non/nar) archives from [Gulp](http://gulpjs.com)
 
-## Install
+## Installation
 
 ```bash
 $ npm install --save-dev gulp-nar
