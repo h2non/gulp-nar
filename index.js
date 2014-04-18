@@ -11,7 +11,7 @@ var mk = require('mkdirp').sync
 var NAME = 'gulp-nar'
 
 exports = module.exports = narTask('create')
-exports.create = module.exports
+exports.create = exports
 exports.extract = narTask('extract')
 
 function narTask(action) {
