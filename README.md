@@ -5,7 +5,7 @@
 ## Installation
 
 ```bash
-$ npm install --save-dev gulp-nar
+$ npm install gulp-nar --save-dev
 ```
 
 ## Usage
