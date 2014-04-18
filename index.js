@@ -18,7 +18,9 @@ function narTask(action) {
   return function task(output, options) {
     var fileStream, archivePath
 
-    return through.obj(function (file, enc, cb) {
+    return through.obj(onWrite, onEnd)
+
+    function onWrite(file, enc, cb) {
       if (file.isNull()) { return cb() }
       if (!fileStream) { fileStream = file }
 
@@ -42,8 +44,9 @@ function narTask(action) {
             cb()
           })
       }
+    }
 
-    }, function (cb) {
+    function onEnd(cb) {
       var outputPath
 
       if (!fileStream) {
@@ -68,6 +71,7 @@ function narTask(action) {
       }))
 
       cb()
-    })
+    }
+
   }
 }
