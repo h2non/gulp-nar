@@ -19,9 +19,8 @@ function narTask(action) {
     var fileStream, archivePath
 
     return through.obj(function (file, enc, cb) {
-      if (file.isNull()) {
-        return cb()
-      }
+      if (file.isNull()) { return cb() }
+      if (!fileStream) { fileStream = file }
 
       try {
         doTask()
@@ -45,18 +44,28 @@ function narTask(action) {
       }
 
     }, function (cb) {
-      if (fileStream === undefined) {
+      var outputPath
+
+      if (!fileStream) {
         return cb()
+      }
+
+      if (archivePath) {
+        if (typeof archivePath === 'object') {
+          outputPath = archivePath.path
+        } else {
+          outputPath = path.join(fileStream.base, archivePath)
+        }
+      } else {
+        outputPath = fileStream.base
       }
 
       this.push(new gutil.File({
         cwd: fileStream.cwd,
         base: fileStream.base,
-        path: path.join(fileStream.base, archivePath),
-        contents: fs.createReadStream(archivePath)
+        path: outputPath,
+        contents: fs.createReadStream(outputPath)
       }))
-
-      this.emit('end')
 
       cb()
     })
