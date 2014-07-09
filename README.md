@@ -16,7 +16,12 @@ var nar = require('gulp-nar')
 
 gulp.task('create', function () {
   gulp.src('package.json')
-    .pipe(nar('releases/'))
+    .pipe(nar.create('releases/'))
+})
+
+gulp.task('create-executable', function () {
+  gulp.src('package.json')
+    .pipe(nar.createExecutable('releases/'))
 })
 
 gulp.task('extract', function () {
@@ -29,9 +34,13 @@ See [gulpfile.js][example] for more examples
 
 ## API
 
-### nar(path, options)
+### nar.create(path, options)
 - **path** `string` Destination directory for the nar archive. Default to current directory
 - **options** `object` Archive creation [options](https://github.com/h2non/nar#narcreateoptions)
+
+### nar.createExecutable(path, options)
+- **path** `string` Destination directory for the nar archive. Default to current directory
+- **options** `object` Executable creation [options](https://github.com/h2non/nar#narcreateexecoptions)
 
 ### nar.extract(path, options)
 - **path** `string` Destination directory for the extracted files. Default to current directory

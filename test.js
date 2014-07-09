@@ -37,6 +37,35 @@ describe('create', function () {
   })
 })
 
+describe('create executable', function () {
+  var stream
+  var executablePath = path.join(__dirname, '.tmp', 'gulp-nar-' + version + '-' + process.platform + '-' + process.arch + '.nar')
+
+  before(function () {
+    stream = nar.createExecutable('.tmp')
+  })
+
+  it('should create a new archive', function (done) {
+    stream.on('data', function (file) {
+      assert.equal(file.path, executablePath)
+      done()
+    })
+
+    stream.write(new File({
+      cwd: __dirname,
+      base: __dirname,
+      path: path.join(__dirname, 'package.json'),
+      contents: new Buffer('fake data')
+    }))
+
+    stream.end()
+  })
+
+  it('should exists the archive', function () {
+    assert.equal(fs.existsSync(executablePath), true)
+  })
+})
+
 describe('extract', function () {
   var stream
   var dest = path.join(__dirname, '.tmp', 'extract')

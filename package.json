@@ -4,13 +4,11 @@
   "description": "Create and extract nar archives",
   "license": "MIT",
   "engineStrict": true,
-  "repository": "h2non/nar",
+  "repository": "h2non/gulp-nar",
+  "license": "MIT",
   "author": {
     "name": "Tomas Aparicio",
-    "url": "http://tomas.aparicio.me"
-  },
-  "engines": {
-    "node": ">= 0.10.0"
+    "email": "tomas@aparicio.me"
   },
   "scripts": {
     "pretest": "rm -rf .tmp",
@@ -35,11 +33,11 @@
     "stream"
   ],
   "dependencies": {
-    "nar": "~0.3.0",
-    "gulp-util": "~2.2.0",
-    "object-assign": "~0.3.0",
-    "through2": "~1.0.0",
-    "mkdirp": "~0.5.0"
+    "gulp-util": "^2.2.20",
+    "mkdirp": "^0.5.0",
+    "nar": "^0.3.10",
+    "object-assign": "^0.3.0",
+    "through2": "^1.0.0"
   },
   "devDependencies": {
     "mocha": "*",
