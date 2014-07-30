@@ -82,7 +82,7 @@ function narTask(action) {
 }
 
 function narError() {
-  throw new Error([
+  throw new gutil.PluginError(NAME, [
     '', 'Fatal error:', 'nar is not installed as global package',
     '', 'You must install it. Run:',
     'npm install -g nar', ''
