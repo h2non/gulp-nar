@@ -110,8 +110,8 @@ describe('extract', function () {
     assert.equal(fs.existsSync(path.join(dest, 'node_modules')), true)
   })
 
-  it('should exists nar package dependency', function () {
-    assert.equal(fs.existsSync(path.join(dest, 'node_modules', 'nar', 'package.json')), true)
+  it('should exists requireg package dependency', function () {
+    assert.equal(fs.existsSync(path.join(dest, 'node_modules', 'requireg', 'package.json')), true)
   })
 
   it('should exists mkdirp package dependency', function () {

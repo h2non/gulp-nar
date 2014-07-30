@@ -5,8 +5,8 @@ var path = require('path')
 var gutil = require('gulp-util')
 var through = require('through2')
 var assign = require('object-assign')
-var nar = require('nar')
 var mk = require('mkdirp').sync
+var resolve = require('requireg').resolve
 
 var NAME = 'gulp-nar'
 
@@ -18,6 +18,10 @@ exports.create = exports
 function narTask(action) {
   return function task(output, options) {
     var fileStream, archivePath
+
+    var nar = resolve('nar')
+    if (!nar) { narError() }
+    nar = require(nar)
 
     return through.obj(onWrite, onEnd)
 
@@ -75,4 +79,12 @@ function narTask(action) {
     }
 
   }
+}
+
+function narError() {
+  throw new Error([
+    '', 'Fatal error:', 'nar is not installed as global package',
+    '', 'You must install it. Run:',
+    'npm install -g nar', ''
+  ].join('\n'))
 }
