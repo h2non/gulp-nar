@@ -4,11 +4,6 @@
 
 ## Installation
 
-Install `nar` as global package
-```bash
-$ npm install -g nar
-```
-
 Install the task
 ```bash
 $ npm install gulp-nar --save-dev
